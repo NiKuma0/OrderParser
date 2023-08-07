@@ -1,0 +1,54 @@
+[tool.black]
+line-length = 120
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+    | venv
+    | _build
+    | buck-out
+    | build
+    | migrations
+    | orderparser/core/settings
+  )/
+)
+'''
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 120
+
+
+[tool.poetry]
+name = "orderparser"
+version = "0.1.0"
+description = "Prser of .csv files containing orders"
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.4"
+djangorestframework = "^3.14.0"
+psycopg = "^3.1.10"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.1.0"
+black = "^23.7.0"
+isort = "^5.12.0"
+mypy = "^1.4.1"
+pre-commit = "^3.3.3"
+django-stubs = {extras = ["compatible-mypy"], version = "^4.2.3"}
+djangorestframework-stubs = {extras = ["compatible-mypy"], version = "^3.14.2"}
+
+
+[tool.poetry.group.test.dependencies]
+pytest-django = "^4.5.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

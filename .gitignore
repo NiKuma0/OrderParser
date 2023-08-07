@@ -1,0 +1,14 @@
+# Python's & Linter's caches
+__pycache__
+.mypy_cache
+
+# IDE
+.vscode
+
+# Project
+*.sqlite3
+static/
+
+# Sercrets
+.env
+deals.csv

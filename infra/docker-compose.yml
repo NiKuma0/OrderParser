@@ -15,7 +15,6 @@ services:
 
   postgres:
     image: postgres:13.2
-    container_name: procharity_postgres
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -29,7 +28,6 @@ services:
 
   nginx:
     image: nginx:1.23.3-alpine
-    container_name: procharity_nginx
     restart: always
     ports:
       - "80:80"

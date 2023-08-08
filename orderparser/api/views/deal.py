@@ -1,7 +1,5 @@
-from typing import Any
-
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from rest_framework import serializers, status
+from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -10,13 +8,6 @@ from orderparser.api.serializers import DealCreateSerializer, DealSerializer
 from orderparser.api.services import ParserCSVBytes
 
 from .base import CreateViewSet
-
-
-class Test(serializers.Serializer):
-    integer = serializers.IntegerField()
-
-    def create(self, validated_data: Any) -> Any:
-        return validated_data
 
 
 class DealViewSet(CreateViewSet):

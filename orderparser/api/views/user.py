@@ -1,7 +1,5 @@
-from typing import Any
-
 from django.db import models
-from django.db.models.query import QuerySet, ValuesQuerySet  # type: ignore
+from django.db.models.query import QuerySet
 
 from orderparser.api.models import Customer, Item
 from orderparser.api.serializers import CustomerSerializer
@@ -13,7 +11,7 @@ class UserViewSet(ListViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
-    def get_queryset(self) -> ValuesQuerySet[Customer, dict[str, Any]]:
+    def get_queryset(self):  # type: ignore
         queryset: QuerySet[Customer] = super().get_queryset()
         customers = (
             queryset.annotate(

@@ -1,5 +1,7 @@
+from typing import Any
+
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from rest_framework import status
+from rest_framework import serializers, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -8,6 +10,13 @@ from orderparser.api.serializers import DealCreateSerializer, DealSerializer
 from orderparser.api.services import ParserCSVBytes
 
 from .base import CreateViewSet
+
+
+class Test(serializers.Serializer):
+    integer = serializers.IntegerField()
+
+    def create(self, validated_data: Any) -> Any:
+        return validated_data
 
 
 class DealViewSet(CreateViewSet):
@@ -23,9 +32,12 @@ class DealViewSet(CreateViewSet):
         deals: InMemoryUploadedFile = create_serializer.validated_data["deals"]
         if not deals.file:
             raise TypeError()
-        deals_data = csv_parser.get_deals_data(deals.file)
+        deals_data = list(csv_parser.get_deals_data(deals.file))
 
-        serializer = self.deal_serializer_class(data=list(deals_data), many=True)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
+        # IDK why, but drf don't validate ListValidate properly. So I don't use it.
+        # TODO: Make the issue.
+        for deal in deals_data:
+            deal_serializer = self.deal_serializer_class(data=deal)
+            deal_serializer.is_valid(raise_exception=True)
+            self.perform_create(deal_serializer)
         return Response({}, status=status.HTTP_201_CREATED)

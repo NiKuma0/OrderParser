@@ -1,0 +1,20 @@
+FROM python:3.11-slim-bullseye
+
+WORKDIR /code
+
+# Update & install containers deps
+RUN apt-get update && apt-get install -y \
+  python3-dev libpq-dev make \
+  && rm -rf /var/lib/apt/lists/*
+
+# Install app deps
+COPY requirements/prod.txt requirements/prod.txt
+RUN python -m pip install --upgrade pip
+RUN pip install -r requirements/prod.txt
+
+# Install app
+COPY .  .
+RUN pip install . --no-deps
+
+# Run app
+CMD sh ./run.sh

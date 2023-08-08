@@ -5,8 +5,8 @@ from .views import DealViewSet, UserViewSet
 
 router = SimpleRouter()
 
-router.register(r"order", DealViewSet)
-router.register(r"user", UserViewSet)
+router.register(r"deals", DealViewSet)
+router.register(r"customer", UserViewSet)
 
 
 urlpatterns = [

@@ -87,7 +87,7 @@ def test_create_deals(client: APIClient, file: SimpleUploadedFile) -> None:
     data = {
         "deals": file,
     }
-    response = client.post("/api/order/", data=data)
+    response = client.post("/api/deals/", data=data)
     assert response.status_code == HTTPStatus.CREATED
     assert response.data == {}
 
@@ -96,12 +96,12 @@ def test_create_deals_with_empty_file(client: APIClient, empty_file: SimpleUploa
     data = {
         "deals": empty_file,
     }
-    response = client.post("/api/order/", data=data)
+    response = client.post("/api/deals/", data=data)
     assert response.status_code == HTTPStatus.BAD_REQUEST
 
 
 def test_customer(client: APIClient) -> None:
-    response = client.get("/api/user/")
+    response = client.get("/api/customer/")
     assert response.status_code == HTTPStatus.OK
     assert response.data == []
 
@@ -110,10 +110,10 @@ def test_create_deals_and_customer(client: APIClient, file: SimpleUploadedFile) 
     data = {
         "deals": file,
     }
-    response = client.post("/api/order/", data=data)
+    response = client.post("/api/deals/", data=data)
     assert response.status_code == HTTPStatus.CREATED
     assert response.data == {}
 
-    response = client.get("/api/user/")
+    response = client.get("/api/customer/")
     assert response.status_code == HTTPStatus.OK
     assert len(response.data) == 5

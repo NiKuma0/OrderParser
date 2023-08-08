@@ -12,4 +12,4 @@ class CustomerSerializer(schema.ModelSerializer[Customer]):
 
     class Meta:
         model = Customer
-        fields = "__all__"
+        fields = ("username", "spent_money", "gems")

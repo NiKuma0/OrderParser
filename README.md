@@ -59,3 +59,30 @@ sudo docker-compose -f infra/docker-compose up
 ### Returning:
 
 201: The file has been sampled into the database.
+
+## `GET /api/customer/`
+
+### Returning:
+
+200:
+```
+[
+    {
+        "username": "samplename",
+        "spent_money": 100,
+        "gems": [
+            "gem1",
+            "gem2"
+        ]
+    },
+    {
+        "username": "username",
+        "spent_money": 123,
+        "gems": [
+            "gem1",
+            "gem3"
+        ]
+    },
+    ...
+]
+```
